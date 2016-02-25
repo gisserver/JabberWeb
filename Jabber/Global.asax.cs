@@ -20,9 +20,9 @@ namespace Jabber
             
         }
         void Session_Start() {
-            Response.Write("yoooooooooooooyoyo");
-        XmppClientConnection xmpp = new XmppClientConnection();
-            
+            Response.Write("Session Started");
+            XmppClientConnection xmpp = new XmppClientConnection();
+            Session["xmpp"] = xmpp;
 
         }
     }

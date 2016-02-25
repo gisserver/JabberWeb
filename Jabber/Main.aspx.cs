@@ -54,5 +54,13 @@ namespace Jabber
             xmpp.Send(msg);
             ////////////////////////
         }
+
+        protected void LogOutBut_Click(object sender, EventArgs e)
+        {
+            XmppClientConnection xmpp = (XmppClientConnection)Session["xmpp"];
+            xmpp.Close();
+            Response.Redirect("Login.aspx");
+
+        }
     }
 }

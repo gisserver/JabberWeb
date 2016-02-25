@@ -18,7 +18,8 @@ namespace Jabber
     {
         private XmppClientConnection xmpp = new XmppClientConnection();
         string output = "";
-        string state = "";        
+        string state = "";
+        bool redirect = true;       
             
         public Login()
         {
@@ -33,18 +34,56 @@ namespace Jabber
             Response.Write(output);
             Response.Write(state);
             
+
         }
         
         
         protected void LoginBut_Click(object sender, EventArgs e)
         {
-            xmpp.OnLogin += Xmpp_OnLogin;
-            
+            Label1.Text = "";
+            //Label doesnt change on click
+
+            //need to implement the handlers
+            //xmpp.OnLogin += Xmpp_OnLogin; 
+            Response.Write(redirect);
+           
+
+            setConnectionDetails();
+            xmpp.Open();
             xmpp.OnError += Xmpp_OnError;
+            Response.Write(redirect);
+
+
+            //if the is an error on login
+            //attempt login again
+
+            //else redirect to main page
+            if (redirect == true)
+            {
+                Response.Redirect("Main.aspx");
+            }
+            
+
+
+        }
+
+
+        private void Xmpp_OnLogin(object sender)
+        {
+          
+               
+               
+            
+           
+        }
+
+        private void setConnectionDetails()
+        {
+            
             Session["xmpp"] = xmpp;
             Session["Name"] = UserNameTB.Text;
-           
             xmpp.Server = "swissjabber.ch";
+            
             xmpp.ConnectServer = "5.148.184.164";
             xmpp.Username = (string)Session["Name"];
             xmpp.Password = PasswordTB.Text;
@@ -57,22 +96,25 @@ namespace Jabber
             xmpp.AutoResolveConnectServer = true;
             xmpp.UseStartTLS = true;
             xmpp.KeepAlive = true;
-            xmpp.Open();
-            
-                          
+
         }
 
         //Event handlers
         private void Xmpp_OnError(object sender, Exception ex)
         {
-            Label1.Text = "Error on login. Please try again";
+            try
+            {
+                redirect = false;
+                Label1.Text = "Error on login. Please try again";
+                xmpp.Close();
+            }
+            catch
+            {
+                throw ex;
+            }
         }
 
 
-        private void Xmpp_OnLogin(object sender)
-        {
-            Response.Redirect("Main.aspx");
-        }
     }
 
 
