@@ -12,7 +12,10 @@ using Jabber.Models;
 namespace Jabber
 {
     public partial class Startup {
-
+        public void Configuration(IAppBuilder app)
+        {
+            ConfigureAuth(app);
+        }
         // For more information on configuring authentication, please visit http://go.microsoft.com/fwlink/?LinkId=301883
         public void ConfigureAuth(IAppBuilder app)
         {
