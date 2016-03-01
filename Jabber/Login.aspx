@@ -20,13 +20,17 @@
         <br />
         <asp:Button ID="LoginBut" runat="server" BackColor="#66FFFF" BorderWidth="1px" Text="Login" OnClick="LoginBut_Click"/>
         
-        <asp:Button ID="RegUserBut" runat="server" BackColor="#66FFFF" BorderWidth="1px" Text="Register" />
+        <asp:Button ID="RegUserBut" runat="server" BackColor="#66FFFF" BorderWidth="1px" Text="Register New User" OnClick="RegUserBut_Click" />
         <br />
         <br />
 
         <br />
 
         <asp:Label ID="Label1" runat="server"></asp:Label>
+       
+
+        <asp:Label ID="Label2" runat="server" Text="Label"></asp:Label>
+        <asp:Label ID="Label3" runat="server" Text="Label"></asp:Label>
        
 
         <br />
