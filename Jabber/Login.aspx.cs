@@ -11,6 +11,7 @@ using agsXMPP.protocol.client;
 using agsXMPP.Collections;
 using System.Threading;
 using System.IO;
+using System.Collections;
 
 namespace Jabber
 {
@@ -37,10 +38,13 @@ namespace Jabber
             //Handlers allow xml stream to be viewed in the debugger for debugging purposes
             xmpp.OnReadXml += new XmlHandler(Xmpp_OnReadXml);
             xmpp.OnWriteXml += new XmlHandler(Xmpp_OnWriteXml);
+            
 
 
 
         }
+
+       
 
         private void Xmpp_OnReadXml(object sender, string xml)
         {
@@ -65,7 +69,9 @@ namespace Jabber
         protected void LoginBut_Click(object sender, EventArgs e)
         {
             //need to implement the handlers
-            xmpp.OnLogin += Xmpp_OnLogin; 
+            xmpp.OnLogin += Xmpp_OnLogin;
+           
+
             Response.Write(redirect);
 
             
