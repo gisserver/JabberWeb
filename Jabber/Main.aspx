@@ -41,9 +41,9 @@
             <asp:UpdatePanel ID="UpdatePanel1" runat="server">
                 
                 <ContentTemplate>
-            
-                    <asp:TextBox ID="TextBox1" runat="server" Height="124px" ReadOnly="True" TextMode="MultiLine" Width="181px"></asp:TextBox>
-                <asp:Button runat="server" Text="Refresh" OnClick="Unnamed2_Click" style="height: 26px" />
+                    <div runat="server" id ="roster1">
+                <asp:Button runat="server" Text="Refresh Roster" OnClick="Unnamed2_Click" style="height: 26px" />
+                        </div>
                     </ContentTemplate>
                       </asp:UpdatePanel>
         </div>

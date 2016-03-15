@@ -20,12 +20,12 @@ namespace Jabber
         string output = "";
         List<Jid> roster = new List<Jid>();
 
+        
 
         public Main()
             {
             string output = "Webform intiallized " + DateTime.Now;
-            
-            
+                       
         }
 
         
@@ -35,18 +35,14 @@ namespace Jabber
             if (xmpp.Equals(null)) {
                 Response.Redirect("Login.aspx");
                         }
-            //XmppClientConnection xmpp = (XmppClientConnection)Session["xmpp"];
-            //string state = "";
+            
             Response.Write(output);
-            //Response.Write(state);
             
             xmpp.OnRosterStart += new ObjectHandler(Xmpp_OnRosterStart);
             xmpp.OnRosterItem += new XmppClientConnection.RosterHandler(xmpp_OnRosterItem);
             xmpp.OnRosterEnd += new ObjectHandler(Xmpp_OnRosterEnd);
             xmpp.RequestRoster();
-
-
-
+            
 
         }
         private void Xmpp_OnRosterEnd(object sender)
@@ -77,11 +73,9 @@ namespace Jabber
             {
                 roster.Add(item.Jid);
             }
-            
-            
+                        
             System.Diagnostics.Debug.WriteLine("Roster count: " + roster.Count);
-            //panellabel.Text = "in the click" + roster[0];
-
+            
         }
 
 
@@ -110,7 +104,8 @@ namespace Jabber
 
         protected void Unnamed2_Click(object sender, EventArgs e)
         {
-            TextBox1.Text = "";
+            ContactList c = new ContactList();
+           
             List<Jid> roster = (List<Jid>)Session["roster"];
             
             
@@ -121,13 +116,21 @@ namespace Jabber
             int i = 0;
             foreach (Jid j in roster)
             {
-                
-                TextBox1.Text += roster[i].ToString();
+                System.Web.UI.HtmlControls.HtmlGenericControl RosterDiv = new System.Web.UI.HtmlControls.HtmlGenericControl("div");
+                RosterDiv.ID = "RosterDiv";
+                c.SetStyle(RosterDiv);
+               
+                roster1.Controls.Add(RosterDiv);
+                LinkButton b = new LinkButton();
+                c.SetStyle(b);
+                c.SetText(b,roster,i);
+                RosterDiv.Controls.Add(b);
                 i++;
             }
 
 
 
         }
+       
     }
 }
