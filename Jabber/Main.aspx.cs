@@ -31,11 +31,12 @@ namespace Jabber
         
         protected void Page_Load(object sender, EventArgs e)
         {
-            XmppClientConnection xmpp = (XmppClientConnection)Session["xmpp"];
-            if (xmpp.Equals(null)) {
+            
+
+            if (Session["Session_ID"]==null || Session["xmpp"]==null) {
                 Response.Redirect("Login.aspx");
                         }
-            
+            XmppClientConnection xmpp = (XmppClientConnection)Session["xmpp"];
             Response.Write(output);
             
             xmpp.OnRosterStart += new ObjectHandler(Xmpp_OnRosterStart);
@@ -98,6 +99,9 @@ namespace Jabber
         {
             XmppClientConnection xmpp = (XmppClientConnection)Session["xmpp"];
             xmpp.Close();
+            Session.RemoveAll();
+            Session.Abandon();
+
             Response.Redirect("Login.aspx");
 
         }

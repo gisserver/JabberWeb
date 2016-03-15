@@ -20,7 +20,10 @@ namespace Jabber
         private XmppClientConnection xmpp = new XmppClientConnection();
         string output = "";
         string state = "";
-        bool redirect = true;       
+        bool redirect = true;
+       
+
+              
             
         public Login()
         {
@@ -32,19 +35,22 @@ namespace Jabber
         
         protected void Page_Load(object sender, EventArgs e)
         {
+            
+            
             Response.Write(output);
             Response.Write(state);
 
             //Handlers allow xml stream to be viewed in the debugger for debugging purposes
             xmpp.OnReadXml += new XmlHandler(Xmpp_OnReadXml);
             xmpp.OnWriteXml += new XmlHandler(Xmpp_OnWriteXml);
+
             
 
 
 
         }
-
        
+
 
         private void Xmpp_OnReadXml(object sender, string xml)
         {
@@ -90,15 +96,12 @@ namespace Jabber
                 Response.Redirect("Main.aspx");
             }
             
-
+            
 
         }
 
 
-        private void Xmpp_OnLogin(object sender)
-        {
-            redirect = true;
-        }
+        
 
         private void setConnectionDetails()
         {
@@ -188,6 +191,13 @@ namespace Jabber
 
             }
             
+        }
+
+        private void Xmpp_OnLogin(object sender)
+        {
+            
+            redirect = true;
+ 
         }
 
         private void Xmpp_OnRegistered(object sender)

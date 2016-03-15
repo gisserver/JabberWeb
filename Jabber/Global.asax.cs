@@ -21,8 +21,8 @@ namespace Jabber
         }
         void Session_Start() {
             Response.Write("Session Started");
-            XmppClientConnection xmpp = new XmppClientConnection();
-            Session["xmpp"] = xmpp;
+            System.Diagnostics.Debug.WriteLine("session started");
+            Session["Session_ID"] = Guid.NewGuid();
 
         }
     }
