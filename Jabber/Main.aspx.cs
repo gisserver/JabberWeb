@@ -18,7 +18,7 @@ namespace Jabber
     {
         
         string output = "";
-        List<Presence> roster = new List<Presence>();
+        List<Contact> roster = new List<Contact>();
         
 
         
@@ -44,7 +44,7 @@ namespace Jabber
             //xmpp.OnRosterItem += new XmppClientConnection.RosterHandler(xmpp_OnRosterItem);
             //xmpp.OnRosterEnd += new ObjectHandler(Xmpp_OnRosterEnd);
             xmpp.OnPresence += new PresenceHandler(Xmpp_OnPresence);
-            xmpp.RequestRoster();
+            //xmpp.RequestRoster();
             
 
 
@@ -55,14 +55,19 @@ namespace Jabber
             
             Session["roster"] = roster;
             System.Diagnostics.Debug.WriteLine(pres.From.User +"from server" + pres.From.Server +"type: " + pres.Type);
-
+            Contact contact = new Contact();
             System.Diagnostics.Debug.WriteLine(pres);
             System.Diagnostics.Debug.WriteLine(roster);
-            if (!roster.Contains(pres))
-            {
-                roster.Add(pres);
-            }
-            System.Diagnostics.Debug.WriteLine("user of first presence" + roster[0].From.User);
+            contact.JID_Name = pres.From.User;
+            contact.JID_Server = pres.From.Server;
+            contact.JID_Presence = pres.Type.ToString();
+
+
+            roster.Add(contact);
+            
+            System.Diagnostics.Debug.WriteLine("user of on presence" + roster[0].JID_Name);
+            System.Diagnostics.Debug.WriteLine("server of on presence" + roster[0].JID_Server);
+            System.Diagnostics.Debug.WriteLine("status of on presence" + roster[0].JID_Presence);
 
             System.Diagnostics.Debug.WriteLine("Roster count from presence event: " + roster.Count);
 
@@ -135,16 +140,16 @@ namespace Jabber
 
         protected void Unnamed2_Click(object sender, EventArgs e)
         {
-            List<Presence> roster = (List<Presence>)Session["roster"];
+            List<Contact> roster = (List<Contact>)Session["roster"];
             ContactList c = new ContactList();
 
             //System.Diagnostics.Debug.WriteLine(roster.Count);
             //Login seems unreliable.
             //getroster seems to only fire sometimes
             int i = 0;
-            System.Diagnostics.Debug.WriteLine("user in div" + roster[i].From.User);
+            //System.Diagnostics.Debug.WriteLine("user in div" + roster[i].From.User);
             
-            foreach (Presence j in roster)
+            foreach (Contact j in roster)
             {
                 
                 System.Web.UI.HtmlControls.HtmlGenericControl RosterDiv = new System.Web.UI.HtmlControls.HtmlGenericControl("div");
@@ -168,30 +173,44 @@ namespace Jabber
 
     public class Contact
     {
-        private string Name = null;
-        private string Presence = null;
+        private string name = "";
+        private string presence = "";
+        private string server = "";
 
         public string JID_Name
         {
             get
             {
-                return Name;
+                return this.name;
             }
             set
             {
-                JID_Name = value;
+                this.name = value;
             }
         }
         public string JID_Presence
         {
             get
             {
-                return Presence;
+                return this.presence;
             }
             set
             {
-                JID_Presence = value;
+                this.presence = value;
             }
         }
+        public string JID_Server
+        {
+            get
+            {
+                return this.server;
+            }
+            set
+            {
+                this.server = value;
+            }
+        }
+
+
     }
 }

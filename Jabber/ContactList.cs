@@ -41,24 +41,24 @@ namespace Jabber
 
 
 
-        public void SetText(System.Web.UI.HtmlControls.HtmlGenericControl RosterDiv, List<Presence> roster, int i)
+        public void SetText(System.Web.UI.HtmlControls.HtmlGenericControl RosterDiv, List<Contact> roster, int i)
         {
-            if (roster[i].Type.ToString().Equals("available")){
+            if (roster[i].JID_Presence.ToString().Equals("available")){
                 RosterDiv.Style.Add(HtmlTextWriterStyle.Color, "#5DFC0A");
             }
-            if (roster[i].Type.ToString().Equals("unavailable"))
+            if (roster[i].JID_Server.ToString().Equals("unavailable"))
             {
-                RosterDiv.Style.Add(HtmlTextWriterStyle.Color, "#FF0000");
+                RosterDiv.Style.Add(HtmlTextWriterStyle.Color, "#000000");
             }
-            RosterDiv.InnerText = roster[i].Type.ToString();
+            RosterDiv.InnerText = roster[i].JID_Presence.ToString();
         }
 
         //invisable button
-        public void SetText(LinkButton b, List<Presence> roster, int i)
+        public void SetText(LinkButton b, List<Contact> roster, int i)
         {
-            string name = roster[i].From.User.ToString();
-            string domain = roster[i].From.Server.ToString();
-            string status = roster[i].Type.ToString();
+            string name = roster[i].JID_Name;
+            string domain = roster[i].JID_Server;
+            string status = roster[i].JID_Presence.ToString();
 
 
 
