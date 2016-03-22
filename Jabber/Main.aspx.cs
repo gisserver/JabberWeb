@@ -18,7 +18,8 @@ namespace Jabber
     {
         
         string output = "";
-        List<Jid> roster = new List<Jid>();
+        List<Presence> roster = new List<Presence>();
+        
 
         
 
@@ -38,18 +39,39 @@ namespace Jabber
                         }
             XmppClientConnection xmpp = (XmppClientConnection)Session["xmpp"];
             Response.Write(output);
-            
-            xmpp.OnRosterStart += new ObjectHandler(Xmpp_OnRosterStart);
-            xmpp.OnRosterItem += new XmppClientConnection.RosterHandler(xmpp_OnRosterItem);
-            xmpp.OnRosterEnd += new ObjectHandler(Xmpp_OnRosterEnd);
+
+            //xmpp.OnRosterStart += new ObjectHandler(Xmpp_OnRosterStart);
+            //xmpp.OnRosterItem += new XmppClientConnection.RosterHandler(xmpp_OnRosterItem);
+            //xmpp.OnRosterEnd += new ObjectHandler(Xmpp_OnRosterEnd);
+            xmpp.OnPresence += new PresenceHandler(Xmpp_OnPresence);
             xmpp.RequestRoster();
             
 
+
         }
+
+        private void Xmpp_OnPresence(object sender, Presence pres)
+        {
+            
+            Session["roster"] = roster;
+            System.Diagnostics.Debug.WriteLine(pres.From.User +"from server" + pres.From.Server +"type: " + pres.Type);
+
+            System.Diagnostics.Debug.WriteLine(pres);
+            System.Diagnostics.Debug.WriteLine(roster);
+            if (!roster.Contains(pres))
+            {
+                roster.Add(pres);
+            }
+            System.Diagnostics.Debug.WriteLine("user of first presence" + roster[0].From.User);
+
+            System.Diagnostics.Debug.WriteLine("Roster count from presence event: " + roster.Count);
+
+        }
+
         private void Xmpp_OnRosterEnd(object sender)
         {
-            List<Jid> roster = (List<Jid>)Session["roster"];
-            roster.Sort();
+            //List<Contact> roster = (List<Contact>)Session["roster"];
+            //roster.Sort();
 
         }
 
@@ -58,7 +80,7 @@ namespace Jabber
 
         private void Xmpp_OnRosterStart(object sender)
         {
-            Session["roster"] = roster;
+            //Session["roster"] = roster;
 
 
         }
@@ -66,16 +88,21 @@ namespace Jabber
 
         private void xmpp_OnRosterItem(object sender, RosterItem item)
         {
-            List<Jid> roster = (List<Jid>)Session["roster"];
+            //XmppClientConnection xmpp = (XmppClientConnection) Session["xmpp"];
+            //List<Contact> roster = (List<Contact>)Session["roster"];
            
-            System.Diagnostics.Debug.WriteLine(item.Jid);
+            //System.Diagnostics.Debug.WriteLine(item.Jid);
+            //Contact contact = new Contact();
+            //if (!roster.Contains(contact))
+            //{
+            //    contact.JID_Name = item.Jid;
+            //    xmpp.PresenceManager.Subscribe(item.Jid);
+                
 
-            if (!roster.Contains(item.Jid))
-            {
-                roster.Add(item.Jid);
-            }
+            //    //roster.Add(contact);
+            //}
                         
-            System.Diagnostics.Debug.WriteLine("Roster count: " + roster.Count);
+            //System.Diagnostics.Debug.WriteLine("Roster count: " + roster.Count);
             
         }
 
@@ -84,7 +111,7 @@ namespace Jabber
         protected void SendMessage_Click(object sender, EventArgs e)
         {
             XmppClientConnection xmpp = (XmppClientConnection)Session["xmpp"];
-            ////////////////////////Null pointer
+            
             Jid jid_reciever = new Jid("CathalR@swissjabber.ch");
             string mbody = NewMessageBox.Text;
 
@@ -92,7 +119,7 @@ namespace Jabber
             // Send response.
             
             xmpp.Send(msg);
-            ////////////////////////
+            
         }
 
         protected void LogOutBut_Click(object sender, EventArgs e)
@@ -108,18 +135,18 @@ namespace Jabber
 
         protected void Unnamed2_Click(object sender, EventArgs e)
         {
+            List<Presence> roster = (List<Presence>)Session["roster"];
             ContactList c = new ContactList();
-           
-            List<Jid> roster = (List<Jid>)Session["roster"];
-            
-            
-            System.Diagnostics.Debug.WriteLine(roster.Count);
+
+            //System.Diagnostics.Debug.WriteLine(roster.Count);
             //Login seems unreliable.
             //getroster seems to only fire sometimes
-                       
             int i = 0;
-            foreach (Jid j in roster)
+            System.Diagnostics.Debug.WriteLine("user in div" + roster[i].From.User);
+            
+            foreach (Presence j in roster)
             {
+                
                 System.Web.UI.HtmlControls.HtmlGenericControl RosterDiv = new System.Web.UI.HtmlControls.HtmlGenericControl("div");
                 RosterDiv.ID = "RosterDiv";
                 c.SetStyle(RosterDiv);
@@ -128,6 +155,7 @@ namespace Jabber
                 LinkButton b = new LinkButton();
                 c.SetStyle(b);
                 c.SetText(b,roster,i);
+                c.SetText(RosterDiv, roster, i);
                 RosterDiv.Controls.Add(b);
                 i++;
             }
@@ -136,5 +164,34 @@ namespace Jabber
 
         }
        
+    }
+
+    public class Contact
+    {
+        private string Name = null;
+        private string Presence = null;
+
+        public string JID_Name
+        {
+            get
+            {
+                return Name;
+            }
+            set
+            {
+                JID_Name = value;
+            }
+        }
+        public string JID_Presence
+        {
+            get
+            {
+                return Presence;
+            }
+            set
+            {
+                JID_Presence = value;
+            }
+        }
     }
 }

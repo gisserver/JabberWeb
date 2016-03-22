@@ -85,6 +85,7 @@ namespace Jabber
             xmpp.Open();
             xmpp.OnError += Xmpp_OnError;
             Response.Write(redirect);
+            
 
 
             //if the is an error on login
@@ -100,8 +101,7 @@ namespace Jabber
 
         }
 
-
-        
+       
 
         private void setConnectionDetails()
         {
