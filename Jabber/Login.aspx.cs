@@ -44,7 +44,8 @@ namespace Jabber
             xmpp.OnReadXml += new XmlHandler(Xmpp_OnReadXml);
             xmpp.OnWriteXml += new XmlHandler(Xmpp_OnWriteXml);
 
-            
+            List<Contact> roster = new List<Contact>();
+            Session["roster"] = roster;
 
 
 

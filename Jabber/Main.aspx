@@ -42,7 +42,7 @@
                 
                 <ContentTemplate>
                     <div runat="server" id ="roster1">
-                <asp:Button runat="server" Text="Refresh Roster" OnClick="Unnamed2_Click" style="height: 26px" />
+                <asp:Button runat="server" Text="Refresh Roster" OnClick="Refresh_Click" style="height: 26px" ID="Refresh_But" />
                         </div>
                     </ContentTemplate>
                       </asp:UpdatePanel>

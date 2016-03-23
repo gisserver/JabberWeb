@@ -24,6 +24,7 @@ namespace Jabber
             RosterDiv.Style.Add(HtmlTextWriterStyle.Padding, "10px 10px 10px 10px");
             RosterDiv.Style.Add(HtmlTextWriterStyle.BackgroundColor, "#808080");
             RosterDiv.Style.Add(HtmlTextWriterStyle.TextAlign, "left");
+            
 
         
         }
@@ -36,6 +37,7 @@ namespace Jabber
             b.Style.Add(HtmlTextWriterStyle.TextAlign, "left");
             b.Style.Add(HtmlTextWriterStyle.TextDecoration, "none");
             b.Style.Add(HtmlTextWriterStyle.WhiteSpace, "pre");
+
             
         }
 
@@ -43,13 +45,15 @@ namespace Jabber
 
         public void SetText(System.Web.UI.HtmlControls.HtmlGenericControl RosterDiv, List<Contact> roster, int i)
         {
-            if (roster[i].JID_Presence.ToString().Equals("available")){
+            if (roster[i].JID_Presence.ToString().Equals("available"))
+            {
                 RosterDiv.Style.Add(HtmlTextWriterStyle.Color, "#5DFC0A");
             }
             if (roster[i].JID_Server.ToString().Equals("unavailable"))
             {
                 RosterDiv.Style.Add(HtmlTextWriterStyle.Color, "#000000");
             }
+            RosterDiv.ID = "div_" + i;
             RosterDiv.InnerText = roster[i].JID_Presence.ToString();
         }
 
@@ -61,6 +65,7 @@ namespace Jabber
             string status = roster[i].JID_Presence.ToString();
 
 
+            b.ID = "L_Button_" + i;
 
             b.Text = ("\t" + name + "\t\t" + domain );
              
