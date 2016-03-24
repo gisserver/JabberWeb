@@ -5,6 +5,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
 <link href="/Content/css?v=Z-yHEtVIQOhCWVakGuXjd207yIlDWykN0EPGLkygpbI1" rel="stylesheet"/>
+    <link href="Content/default.css" rel="stylesheet" type="text/css" media="all" />
+<link href="Content/fonts.css" rel="stylesheet" type="text/css" media="all" />
     <style>
         #LogOutBut {
             position: absolute;
@@ -30,7 +32,7 @@
             <br />
             <h1> Hello <%:Session["Name"]%>, Welcome to the Jabber Web Client.</h1>
            
-            <asp:Label ID="Label1" runat="server" Text="Label"></asp:Label>
+            
            
          <br />
 
@@ -38,12 +40,21 @@
             <asp:ScriptManager ID="ScriptManager1" runat="server" EnablePartialRendering= "true"></asp:ScriptManager>
         <div class="row">
         <div class="col-md-3">
-            <asp:UpdatePanel ID="UpdatePanel1" runat="server">
+            <asp:Timer ID="Timer1"  runat="server" Interval="5000">
+            </asp:Timer>
+            <asp:UpdatePanel ID="UpdatePanel1" runat="server" UpdateMode="Conditional">
+                                
+
+                <Triggers>
+                <asp:AsyncPostBackTrigger ControlID="Timer1" EventName="Tick"/>
+                    <asp:AsyncPostBackTrigger ControlID="Refresh_But" EventName="Click"/>
+            </Triggers>
                 
                 <ContentTemplate>
                     <div runat="server" id ="roster1">
-                <asp:Button runat="server" Text="Refresh Roster" OnClick="Refresh_Click" style="height: 26px" ID="Refresh_But" />
-                        </div>
+                        </div>            
+                    <asp:Button runat="server" Text="Refresh Roster" Visible="False" OnClick="Refresh_Click" style="height: 26px" ID="Refresh_But" />
+
                     </ContentTemplate>
                       </asp:UpdatePanel>
         </div>

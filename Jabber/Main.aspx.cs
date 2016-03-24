@@ -44,6 +44,8 @@ namespace Jabber
             //xmpp.OnRosterEnd += new ObjectHandler(Xmpp_OnRosterEnd);
             xmpp.OnPresence += new PresenceHandler(Xmpp_OnPresence);
             //xmpp.RequestRoster();
+            Refresh_Click(Refresh_But, EventArgs.Empty);
+
 
 
 
@@ -77,10 +79,25 @@ namespace Jabber
             roster.Add(contact);
             //System.Diagnostics.Debug.WriteLine("adding" + pres.From.User + pres.From.Server);
 
+            //cause ajax update panel to postback
+            
 
             //System.Diagnostics.Debug.WriteLine("user of on presence" + roster[0].JID_Name);
             //System.Diagnostics.Debug.WriteLine("server of on presence" + roster[0].JID_Server);
             //System.Diagnostics.Debug.WriteLine("status of on presence" + roster[0].JID_Presence);
+            //ContactList c = new ContactList();
+            //System.Web.UI.HtmlControls.HtmlGenericControl RosterDiv = new System.Web.UI.HtmlControls.HtmlGenericControl("div");
+            //RosterDiv.ID = "RosterDiv";
+            //RosterDiv.InnerHtml = contact.JID_Presence;
+            //c.SetStyle(RosterDiv);
+
+
+            //roster1.Controls.Add(RosterDiv);
+            //LinkButton b = new LinkButton();
+            //c.SetStyle(b);
+
+            //b.Text = ("\t" + pres.From.User + "\t\t" + pres.From.Server);
+            //RosterDiv.Controls.Add(b);
 
             System.Diagnostics.Debug.WriteLine("Roster count from presence event: " + roster.Count);
 
@@ -172,6 +189,7 @@ namespace Jabber
                 
                 roster1.Controls.Add(RosterDiv);
                 LinkButton b = new LinkButton();
+
                 c.SetStyle(b);
                 c.SetText(b, roster, i);
                 
