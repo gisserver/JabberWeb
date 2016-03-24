@@ -218,8 +218,8 @@ namespace Jabber
             }
             jid_receiver.User = words[1];
             jid_receiver.Server = words[3];
-            //After it is replaced
-            System.Diagnostics.Debug.WriteLine(words[1]+ words[3]);
+            
+            
             System.Diagnostics.Debug.WriteLine(jid_receiver.User +jid_receiver.Server);
             System.Diagnostics.Debug.WriteLine("Event to try set the reciever");
         }
