@@ -46,6 +46,8 @@ namespace Jabber
 
             List<Contact> roster = new List<Contact>();
             Session["roster"] = roster;
+            Jid JID_Receiver = new Jid(null);
+            Session["JID_Receiver"] = JID_Receiver;
 
 
 

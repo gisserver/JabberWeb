@@ -142,15 +142,16 @@ namespace Jabber
         }
 
 
+        
 
         protected void SendMessage_Click(object sender, EventArgs e)
         {
             XmppClientConnection xmpp = (XmppClientConnection)Session["xmpp"];
-
-            Jid jid_reciever = new Jid("CathalR@swissjabber.ch");
+            Jid jid_receiver = (Jid)Session["jid_receiver"];
+            
             string mbody = NewMessageBox.Text;
-
-            Message msg = new Message(jid_reciever, mbody);
+            NewMessageBox.Text = string.Empty;
+            Message msg = new Message(jid_receiver, mbody);
             // Send response.
 
             xmpp.Send(msg);
@@ -189,7 +190,7 @@ namespace Jabber
                 
                 roster1.Controls.Add(RosterDiv);
                 LinkButton b = new LinkButton();
-
+                b.Click += new EventHandler(B_Click);
                 c.SetStyle(b);
                 c.SetText(b, roster, i);
                 
@@ -200,6 +201,29 @@ namespace Jabber
 
 
         }
+
+        private void B_Click(object sender, EventArgs e)
+        {
+            Jid jid_receiver = (Jid)Session["jid_receiver"];
+            LinkButton b = (LinkButton)sender;
+            System.Diagnostics.Debug.WriteLine(b.Text);
+            char[] delimiterChars = { ' ','\t' };
+            string[] words = b.Text.Split(delimiterChars);
+            //jid_reciever.User = words[0];
+            //jid_reciever.Server = words[1];
+            //jid_reciever.User = b.Text.Trim();
+            foreach (string s in words)
+            {
+                System.Diagnostics.Debug.WriteLine(s);
+            }
+            jid_receiver.User = words[1];
+            jid_receiver.Server = words[3];
+            //After it is replaced
+            System.Diagnostics.Debug.WriteLine(words[1]+ words[3]);
+            System.Diagnostics.Debug.WriteLine(jid_receiver.User +jid_receiver.Server);
+            System.Diagnostics.Debug.WriteLine("Event to try set the reciever");
+        }
+
         public override int GetHashCode()
         {
             List<Contact> roster = (List<Contact>)Session["roster"];
