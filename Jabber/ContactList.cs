@@ -60,6 +60,7 @@ namespace Jabber
         //invisable button
         public void SetText(LinkButton b, List<Contact> roster, int i)
         {
+
             string name = roster[i].JID_Name;
             string domain = roster[i].JID_Server;
             string status = roster[i].JID_Presence.ToString();
@@ -69,6 +70,16 @@ namespace Jabber
 
             b.Text = ("\t" + name + "\t\t" + domain );
              
+        }
+
+        public void setReceiver(LinkButton linkButton , Jid Jid)
+        {
+            char[] delimiterChars = { ' ', '\t' };
+            string[] words = linkButton.Text.Split(delimiterChars);
+            Jid.User = words[1];
+            Jid.Server = words[3];
+
+
         }
 
 
