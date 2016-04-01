@@ -1,11 +1,49 @@
 $(function () {
+    $("#AddContact-form").dialog({
+        autoOpen: false,
+        modal: true,
+        buttons: {
+            "Ok": function () {
+
+                var conName = $("#ContactName");
+                var conDomain = $("#ContactDomain");
+
+
+                var conNameHidden = $("#ContactNameHidden");
+                var conDomainHidden = $("#DomainNameHidden");
+
+
+                //Set the hidden variables to the values in the form
+                //OnValueChanged event is called
+
+                conNameHidden.val(conName.val());
+                conDomainHidden.val(conDomain.val());
+
+
+                $(this).dialog("close");
+            },
+            "Cancel": function () {
+                $(this).dialog("close");
+            }
+        }
+    });
+
+
+    $('#AddContact').click(function () {
+        document.getElementById('AddContact-form').style.visibility = 'visible';
+
+        $("#AddContact-form").dialog("open");
+    });
+
+});
+
+$(function () {
     $("#JoinGC-form").dialog({
         autoOpen: false,
         modal: true,
         buttons: {
             "Ok": function () {
-                var label= $("#label");
-                        
+                                        
                 var gcname = $("#GCName");
                 var password = $("#password");
                 var nickname = $("#nickname");
@@ -13,9 +51,13 @@ $(function () {
                 var GroupChatNameHidden = $("#GroupChatNameHidden");
                 var GroupChatPassword = $("#PasswordHidden");
                 var GroupChatNickName = $("#NickNameHidden");
-                //Do your code here
+
+
+
+                //Set the hidden variables to the values in the form
+                //OnValueChanged event is called
                 
-                        
+                       
                 GroupChatNameHidden.val(gcname.val());
                 GroupChatPassword.val(password.val());
                 GroupChatNickName.val(nickname.val());
@@ -41,10 +83,5 @@ $(function () {
     
         
 
-function AddContactMessageBox() {
-
-    var contact = prompt("Enter the Contact Name and Domain", "");
-
-
-}
+         
 

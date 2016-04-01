@@ -93,7 +93,7 @@ namespace Jabber
             roster.Add(contact);
             
 
-            //cause ajax update panel to postback
+            
             
             
             System.Diagnostics.Debug.WriteLine("Roster count from presence event: " + roster.Count);
@@ -220,7 +220,7 @@ namespace Jabber
             System.Diagnostics.Debug.WriteLine(msg.From.User +" : " + msg.Body + " : " + DateTime.Now);
         }
 
-        protected void JoinGC_Click(object sender, EventArgs e)
+        protected void JoinGC(object sender, EventArgs e)
         {
             XmppClientConnection xmpp = (XmppClientConnection)Session["xmpp"];
             MucManager mucManager = new MucManager(xmpp);
@@ -231,6 +231,17 @@ namespace Jabber
             xmpp.Send(new Message(Room,type, "This is a test"));
 
         }
-        
+
+        protected void addContact(object sender, EventArgs e)
+        {
+            XmppClientConnection xmpp = (XmppClientConnection)Session["xmpp"];
+            string contactName = ContactNameHidden.Value + "@" + DomainNameHidden.Value;
+            xmpp.RosterManager.AddRosterItem(contactName);
+            System.Diagnostics.Debug.WriteLine(contactName);
+            xmpp.PresenceManager.Subscribe(contactName);
+            xmpp.PresenceManager.ApproveSubscriptionRequest(contactName);
+
+        }
+
     }
 }

@@ -42,11 +42,11 @@ namespace Jabber
         
         public void SetText(System.Web.UI.HtmlControls.HtmlGenericControl RosterDiv, List<Contact> roster, int i)
         {
-            if (roster[i].JID_Presence.ToString().Equals("available"))
+            if (roster[i].JID_Presence.ToString().Equals("available") || roster[i].JID_Presence.ToString().Equals("subscribe"))
             {
                 RosterDiv.Style.Add(HtmlTextWriterStyle.Color, "#5DFC0A");
             }
-            if (roster[i].JID_Server.ToString().Equals("unavailable"))
+            else
             {
                 RosterDiv.Style.Add(HtmlTextWriterStyle.Color, "#000000");
             }

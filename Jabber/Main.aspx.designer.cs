@@ -49,6 +49,24 @@ namespace Jabber {
         protected global::System.Web.UI.WebControls.HiddenField NickNameHidden;
         
         /// <summary>
+        /// ContactNameHidden control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HiddenField ContactNameHidden;
+        
+        /// <summary>
+        /// DomainNameHidden control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HiddenField DomainNameHidden;
+        
+        /// <summary>
         /// LogOutBut control.
         /// </summary>
         /// <remarks>
