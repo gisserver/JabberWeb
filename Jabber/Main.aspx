@@ -7,7 +7,9 @@
 <link href="/Content/css?v=Z-yHEtVIQOhCWVakGuXjd207yIlDWykN0EPGLkygpbI1" rel="stylesheet"/>
     <link href="Content/default.css" rel="stylesheet" type="text/css" media="all" />
 <link href="Content/fonts.css" rel="stylesheet" type="text/css" media="all" />
-    <style>
+    <script src ="Scripts/joinGC.js" type="text/javascript"></script>
+    
+         <style>
         #LogOutBut {
             position: absolute;
             top: 2px;
@@ -27,6 +29,8 @@
 <body>
     
     <form id="form1" runat="server">
+            <asp:HiddenField ID="GroupChat" Value="" runat="server"/>
+
          <asp:Button ID="LogOutBut" runat="server" OnClick="LogOutBut_Click" Text="LogOut" />
         <div >
             <br />
@@ -54,9 +58,12 @@
                     <div runat="server" id ="roster1">
                         </div>            
                     <asp:Button runat="server" Text="Refresh Roster" Visible="False" OnClick="Refresh_Click" style="height: 26px" ID="Refresh_But" />
+                                <asp:Button id="JoinGC" runat="server"  Text="Join GC" onclick="JoinGC_Click" />
 
+                    
                     </ContentTemplate>
                       </asp:UpdatePanel>
+
         </div>
         <div class="col-md-6">
             <br />

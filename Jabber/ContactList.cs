@@ -25,8 +25,6 @@ namespace Jabber
             RosterDiv.Style.Add(HtmlTextWriterStyle.BackgroundColor, "#808080");
             RosterDiv.Style.Add(HtmlTextWriterStyle.TextAlign, "left");
             
-
-        
         }
 
         public void SetStyle(LinkButton b)
@@ -41,8 +39,7 @@ namespace Jabber
             
         }
 
-
-
+        
         public void SetText(System.Web.UI.HtmlControls.HtmlGenericControl RosterDiv, List<Contact> roster, int i)
         {
             if (roster[i].JID_Presence.ToString().Equals("available"))
@@ -63,7 +60,7 @@ namespace Jabber
 
             string name = roster[i].JID_Name;
             string domain = roster[i].JID_Server;
-            string status = roster[i].JID_Presence.ToString();
+            
 
 
             b.ID = "L_Button_" + i;
@@ -72,13 +69,12 @@ namespace Jabber
              
         }
 
-        public void setReceiver(LinkButton linkButton , Jid Jid)
+        public void setReceiver(LinkButton linkButton , Contact cont)
         {
             char[] delimiterChars = { ' ', '\t' };
             string[] words = linkButton.Text.Split(delimiterChars);
-            Jid.User = words[1];
-            Jid.Server = words[3];
-
+            cont.JID_Name = words[1];
+            cont.JID_Server = words[3];
 
         }
 

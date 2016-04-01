@@ -11,6 +11,8 @@ using agsXMPP.protocol.client;
 using agsXMPP.Collections;
 using System.Threading;
 using System.Collections;
+using agsXMPP.protocol.x.muc;
+
 
 namespace Jabber
 {
@@ -58,6 +60,10 @@ namespace Jabber
             iqgr.SendIq(myiq,null,null);
             */
 
+            
+            
+
+
         }
 
         private void Xmpp_OnPresence(object sender, Presence pres)
@@ -67,18 +73,21 @@ namespace Jabber
             
             List<Contact> roster = (List<Contact>)Session["roster"];
             System.Diagnostics.Debug.WriteLine(pres.From.User + "from server" + pres.From.Server + "type: " + pres.Type);
+            
             Contact contact = new Contact();
             
             contact.JID_Name = pres.From.User;
             contact.JID_Server = pres.From.Server;
             contact.JID_Presence = pres.Type.ToString();
+            contact.JID_Full = pres.From.User + "@" + pres.From.Server;
             
-                for(int i = 0; i < roster.Count; i++)
+
+            for (int i = 0; i < roster.Count; i++)
             {
-             if (pres.From.User == roster[i].JID_Name & pres.From.Server == roster[i].JID_Server)
+                if (pres.From.User == roster[i].JID_Name & pres.From.Server == roster[i].JID_Server)
                 {
                     roster.Remove(roster[i]);
-                    
+
                 }
             }
             roster.Add(contact);
@@ -128,15 +137,25 @@ namespace Jabber
         protected void SendMessage_Click(object sender, EventArgs e)
         {
             XmppClientConnection xmpp = (XmppClientConnection)Session["xmpp"];
-            Jid jid_receiver = (Jid)Session["jid_receiver"];
+            Contact cont = (Contact)Session["Contact"];
             
             string mbody = NewMessageBox.Text;
-            NewMessageBox.Text = string.Empty;
-            Message msg = new Message(jid_receiver, mbody);
+            MessageType type;
+            if (cont.JID_Server.Contains("conference"))
+            {
+                type = MessageType.groupchat;
+            }
+            else
+            {
+                type = MessageType.chat;
+            }
+            
+            Message msg = new Message(cont.JID_Name+"@"+cont.JID_Server,type, mbody);
             // Send response.
 
-            xmpp.Send(msg);
 
+            xmpp.Send(msg);
+            NewMessageBox.Text = string.Empty;
         }
 
         protected void LogOutBut_Click(object sender, EventArgs e)
@@ -181,13 +200,37 @@ namespace Jabber
         private void B_Click(object sender, EventArgs e)
         {
             //Sets the message receiver on click of linkbutton
-            Jid jid_receiver = (Jid)Session["jid_receiver"];
+            Contact cont = (Contact)Session["Contact"];
+            
             LinkButton b = (LinkButton)sender;
             ContactList c = new ContactList();
-            c.setReceiver(b, jid_receiver);
+            c.setReceiver(b, cont);
+            XmppClientConnection xmpp = (XmppClientConnection)Session["xmpp"];
+            MessageGrabber messageGrab = new MessageGrabber(xmpp);
+            messageGrab.Add(new Jid(cont.JID_Full), new BareJidComparer(), new MessageCB(MessageCallBack), null);
+
             
-           
+
+
         }
 
+        private void MessageCallBack(object sender, Message msg, object data)
+        {
+            //Write to file or write to database???????
+            System.Diagnostics.Debug.WriteLine(msg.From.User +" : " + msg.Body + " : " + DateTime.Now);
+        }
+
+        protected void JoinGC_Click(object sender, EventArgs e)
+        {
+            XmppClientConnection xmpp = (XmppClientConnection)Session["xmpp"];
+            MucManager mucManager = new MucManager(xmpp);
+            Jid Room = new Jid("gdem@conference.swissjabber.ch");
+            mucManager.JoinRoom(Room, "gtown");
+
+            MessageType type = MessageType.groupchat;
+            xmpp.Send(new Message(Room,type, "This is a test"));
+
+        }
+        
     }
 }

@@ -10,6 +10,8 @@ namespace Jabber
         private string name = "";
         private string presence = "";
         private string server = "";
+        private string type = "";
+        private string full = "";
 
         public string JID_Name
         {
@@ -42,6 +44,28 @@ namespace Jabber
             set
             {
                 this.server = value;
+            }
+        }
+        public string JID_Type
+        {
+            get
+            {
+                return this.type;
+            }
+            set
+            {
+                this.type = value;
+            }
+        }
+        public string JID_Full
+        {
+            get
+            {
+                return this.full;
+            }
+            set
+            {
+                this.full = value;
             }
         }
 
