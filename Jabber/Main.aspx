@@ -7,7 +7,12 @@
 <link href="/Content/css?v=Z-yHEtVIQOhCWVakGuXjd207yIlDWykN0EPGLkygpbI1" rel="stylesheet"/>
     <link href="Content/default.css" rel="stylesheet" type="text/css" media="all" />
 <link href="Content/fonts.css" rel="stylesheet" type="text/css" media="all" />
-    <script src ="Scripts/joinGC.js" type="text/javascript"></script>
+   <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css"/>
+  <script src="//code.jquery.com/jquery-1.10.2.js"></script>
+  <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+  <link rel="stylesheet" href="/resources/demos/style.css"/>
+
+ <script type="text/javascript" src="Scripts/joinGC.js"></script>
     
          <style>
         #LogOutBut {
@@ -27,9 +32,28 @@
     <title></title>
 </head>
 <body>
+     
+
+    <div id="JoinGC-form" style="visibility:hidden">
+    <form >
+        <label for="name">Chat Name</label>
+        <input type="text" name="name" id="GCName" class="text ui-widget-content ui-corner-all" />
+        <label for="name">Password</label>
+        <input type="text" name="password" id="password" class="text ui-widget-content ui-corner-all" />
+        <label for="name">Nickname</label>
+        <input type="text" name="nickname" id="nickname" class="text ui-widget-content ui-corner-all" value ="<%:Session["Name"]%>" />
+        
+    </form>
     
+</div>
     <form id="form1" runat="server">
-            <asp:HiddenField ID="GroupChat" Value="" runat="server"/>
+        
+ 
+
+        
+            <asp:HiddenField ID="GroupChatNameHidden" Value="" runat="server" OnValueChanged="JoinGC_Click"/>
+        <asp:HiddenField ID="PasswordHidden" Value="" runat="server" />
+        <asp:HiddenField ID="NickNameHidden" Value="" runat="server" />
 
          <asp:Button ID="LogOutBut" runat="server" OnClick="LogOutBut_Click" Text="LogOut" />
         <div >
@@ -58,13 +82,15 @@
                     <div runat="server" id ="roster1">
                         </div>            
                     <asp:Button runat="server" Text="Refresh Roster" Visible="False" OnClick="Refresh_Click" style="height: 26px" ID="Refresh_But" />
-                                <asp:Button id="JoinGC" runat="server"  Text="Join GC" onclick="JoinGC_Click" />
+                        
 
-                    
+                   
                     </ContentTemplate>
                       </asp:UpdatePanel>
 
+            <input id="JoinGC"  value="Join GC"  type="button" />
         </div>
+            
         <div class="col-md-6">
             <br />
 

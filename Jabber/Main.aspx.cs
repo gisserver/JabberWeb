@@ -224,8 +224,8 @@ namespace Jabber
         {
             XmppClientConnection xmpp = (XmppClientConnection)Session["xmpp"];
             MucManager mucManager = new MucManager(xmpp);
-            Jid Room = new Jid("gdem@conference.swissjabber.ch");
-            mucManager.JoinRoom(Room, "gtown");
+            Jid Room = new Jid(GroupChatNameHidden.Value);
+            mucManager.JoinRoom(Room,NickNameHidden.Value);
 
             MessageType type = MessageType.groupchat;
             xmpp.Send(new Message(Room,type, "This is a test"));

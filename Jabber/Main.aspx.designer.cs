@@ -22,13 +22,31 @@ namespace Jabber {
         protected global::System.Web.UI.HtmlControls.HtmlForm form1;
         
         /// <summary>
-        /// GroupChat control.
+        /// GroupChatNameHidden control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.HiddenField GroupChat;
+        protected global::System.Web.UI.WebControls.HiddenField GroupChatNameHidden;
+        
+        /// <summary>
+        /// PasswordHidden control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HiddenField PasswordHidden;
+        
+        /// <summary>
+        /// NickNameHidden control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HiddenField NickNameHidden;
         
         /// <summary>
         /// LogOutBut control.
@@ -83,15 +101,6 @@ namespace Jabber {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button Refresh_But;
-        
-        /// <summary>
-        /// JoinGC control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button JoinGC;
         
         /// <summary>
         /// Panel1 control.
