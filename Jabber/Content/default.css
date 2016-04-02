@@ -17,7 +17,19 @@
         background-size: 100%;
      
 	}
-	
+    #UserNameTB,
+    #PasswordTB    
+    {
+        margin:0 auto;
+    }
+
+.loginpagediv{
+   
+    font-family: sans-serif;
+    font-size: 18px;
+   
+
+}	
 	
 	h1, h2, h3
 	{
@@ -26,6 +38,14 @@
 		font-weight: 700;
 		color: #2B3F48;
 	}
+
+    #loginform{
+        
+     text-align:center;
+     
+
+    }
+   
 	
 	p, ol, ul
 	{
@@ -209,6 +229,7 @@ input[type="submit"] {
   font-size: 18px;
   box-shadow:none;
   border-radius: 2px;
+
   
 
 }
@@ -224,24 +245,27 @@ input[type="submit"]:hover {
 
 	.button
 	{
+        margin:0 auto;
 		display: inline-block;
-		padding: 0em 3em;
+		padding: 0em 0em;
 		background: #af1641;
-		border-radius: 7px;
+		border-radius: 5px;
 		letter-spacing: 0.20em;
-		line-height: 4em;
+		line-height: 3em;
 		text-decoration: none;
 		text-transform: uppercase;
 		font-weight: 400;
 		font-size: 1em;
 		color: #FFF;
+
+        
 	}
 	
 	.button:before
 	{
 		display: inline-block;
 		background: #FFC31F;
-		margin-right: 1em;
+		
 		width: 40px;
 		height: 40px;
 		line-height: 40px;
@@ -281,20 +305,15 @@ input[type="submit"]:hover {
 	.box4
 	{
 		width: 235px;
+        
+        
 	}
+    .box1
+    {
+        margin: 0 auto;
+    }
 	
-	.box1,
-	.box2,
-	.box3,
-	{
-		float: left;
-		margin-right: 20px;
-	}
 	
-	.box4
-	{
-		float: right;
-	}
 	
 /*********************************************************************************/
 /* 3-column                                                                      */

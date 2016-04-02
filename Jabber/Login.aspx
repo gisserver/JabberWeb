@@ -5,13 +5,14 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
     <title>Jabber Web Client</title>
+    <link href="Content/fonts.css" rel="stylesheet" type="text/css" media="all" />
     <link href="Content/default.css" rel="stylesheet" type="text/css" media="all" />
-<link href="Content/fonts.css" rel="stylesheet" type="text/css" media="all" />
+
 
 </head>
 <body>
-    <form id="form1" runat="server">
-    <div>
+    <form id="loginform" runat="server">
+    <div class="loginpagediv">
 
         <br />
         Username
@@ -19,11 +20,11 @@
         @swissjabber.ch 
         <br />
         Password
-        <asp:TextBox ID="PasswordTB" runat="server" ></asp:TextBox>
+        <asp:TextBox  ID="PasswordTB" runat="server" ></asp:TextBox>
         <br />
-        <asp:Button ID="LoginBut" runat="server"  BorderWidth="1px" Text="Login" OnClick="LoginBut_Click"/>
+        <asp:Button  Style="margin-top: 26px; margin-left: auto; margin-right: auto" class="button" ID="LoginBut" runat="server"  BorderWidth="1px" Text="Login" OnClick="LoginBut_Click"/>
         
-        <asp:Button ID="RegUserBut" runat="server"  BorderWidth="1px" Text="Register New User" OnClick="RegUserBut_Click" />
+        <asp:Button Style="margin-top: 26px; margin-left: auto; margin-right: auto" class="button" ID="RegUserBut" runat="server"  BorderWidth="1px" Text="Register New User" OnClick="RegUserBut_Click" />
         <br />
         <br />
 
