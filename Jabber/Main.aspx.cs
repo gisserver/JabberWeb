@@ -152,16 +152,17 @@ namespace Jabber
             
             Message msg = new Message(cont.JID_Name+"@"+cont.JID_Server,type, mbody);
             // Send response.
-
+            System.Diagnostics.Debug.WriteLine(type.ToString());
 
             xmpp.Send(msg);
+            MessageDB saver = new MessageDB();
+            saver.saveMessage(xmpp.Username + "@" + xmpp.Server, cont.JID_Name + "@" + cont.JID_Server, mbody, type.ToString());
             NewMessageBox.Text = string.Empty;
         }
 
         protected void LogOutBut_Click(object sender, EventArgs e)
         {
-            XmppClientConnection xmpp = (XmppClientConnection)Session["xmpp"];
-            xmpp.Close();
+            //Session is cleaned up in Session_End
             Session.RemoveAll();
             Session.Abandon();
 
@@ -208,7 +209,7 @@ namespace Jabber
             XmppClientConnection xmpp = (XmppClientConnection)Session["xmpp"];
             MessageGrabber messageGrab = new MessageGrabber(xmpp);
             messageGrab.Add(new Jid(cont.JID_Full), new BareJidComparer(), new MessageCB(MessageCallBack), null);
-
+            
             
 
 
@@ -217,7 +218,12 @@ namespace Jabber
         private void MessageCallBack(object sender, Message msg, object data)
         {
             //Write to file or write to database???????
-            System.Diagnostics.Debug.WriteLine(msg.From.User +" : " + msg.Body + " : " + DateTime.Now);
+            XmppClientConnection xmpp = (XmppClientConnection)Session["xmpp"];
+
+            System.Diagnostics.Debug.WriteLine(msg.From.User+"@"+msg.From.Server+xmpp.Username + "@" + xmpp.Server + msg.Body+ msg.Type.ToString());
+            MessageDB saver = new MessageDB();
+            saver.saveMessage(msg.From.User + "@" + msg.From.Server, xmpp.Username + "@" + xmpp.Server, msg.Body, msg.Type.ToString());
+
         }
 
         protected void JoinGC(object sender, EventArgs e)

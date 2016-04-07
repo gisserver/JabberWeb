@@ -21,9 +21,15 @@ namespace Jabber
         }
         void Session_Start() {
             Response.Write("Session Started");
-            System.Diagnostics.Debug.WriteLine("session started");
+            System.Diagnostics.Debug.WriteLine("Session started");
             Session["Session_ID"] = Guid.NewGuid();
 
+        }
+        void Session_End()
+        {
+            System.Diagnostics.Debug.WriteLine("Session ended");
+                       
+            
         }
     }
 }

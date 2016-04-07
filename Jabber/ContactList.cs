@@ -75,6 +75,7 @@ namespace Jabber
             string[] words = linkButton.Text.Split(delimiterChars);
             cont.JID_Name = words[1];
             cont.JID_Server = words[3];
+            cont.JID_Full = cont.JID_Name +"@"+ cont.JID_Server;
 
         }
 
