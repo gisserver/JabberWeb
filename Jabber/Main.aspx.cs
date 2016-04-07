@@ -12,6 +12,7 @@ using agsXMPP.Collections;
 using System.Threading;
 using System.Collections;
 using agsXMPP.protocol.x.muc;
+using System.IO;
 
 
 namespace Jabber
@@ -29,6 +30,7 @@ namespace Jabber
 
         protected void Page_Load(object sender, EventArgs e)
         { 
+
             if (Session["Session_ID"] == null || Session["xmpp"] == null)
             {
                 Response.Redirect("Login.aspx");
@@ -42,7 +44,7 @@ namespace Jabber
             xmpp.OnPresence += new PresenceHandler(Xmpp_OnPresence);
             //xmpp.RequestRoster();
             Refresh_Click(Refresh_But, EventArgs.Empty);
-
+            
             /*
             send an iq
 
@@ -162,6 +164,13 @@ namespace Jabber
 
         protected void LogOutBut_Click(object sender, EventArgs e)
         {
+            List<string> conversation = (List<string>)Session["Conversation"];
+            System.Diagnostics.Debug.WriteLine(conversation[0] + conversation[1]);
+            foreach (string convo in conversation)
+            {
+                File.Delete(convo);
+            }
+            System.Diagnostics.Debug.WriteLine(conversation[0] + conversation[1]);
             //Session is cleaned up in Session_End
             Session.RemoveAll();
             Session.Abandon();
@@ -209,12 +218,49 @@ namespace Jabber
             XmppClientConnection xmpp = (XmppClientConnection)Session["xmpp"];
             MessageGrabber messageGrab = new MessageGrabber(xmpp);
             messageGrab.Add(new Jid(cont.JID_Full), new BareJidComparer(), new MessageCB(MessageCallBack), null);
-            
-            
 
+
+            List<string> conversation = (List<string>)Session["Conversation"];
+            MessageDB loader = new MessageDB();
+            string fileName = cont.JID_Full + "_hist";
+            fileName = fileName.Replace("@", "");
+            fileName = fileName.Replace(".", "");
+
+            //Only store five conversations at a time
+            //Delete the oldest               
+            string path = @"C:\Temp\" + fileName + ".txt";
+            loader.loadMessage(xmpp.Username + "@" + xmpp.Server, cont.JID_Full,conversation,path);
+            StreamReader sr = File.OpenText(path);
+            try
+            {   // Open the text file using a stream reader.
+
+
+                // Read the stream to a string, and write the string to the console.
+
+                string line;
+                while((line = sr.ReadLine()) != null)
+                {
+                    System.Diagnostics.Debug.WriteLine(line);
+                    //Need to append the textbox with the messages
+                     
+                }
+
+
+            }
+            catch (Exception )
+            {
+                System.Diagnostics.Debug.WriteLine("The file could not be read:");
+                
+            }
+            //MessageDisplay.Text = ;
+            finally
+            {
+                sr.Close(); 
+            }
+            
 
         }
-
+        
         private void MessageCallBack(object sender, Message msg, object data)
         {
             //Write to file or write to database???????

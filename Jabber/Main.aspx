@@ -109,7 +109,8 @@
         <div class="col-md-6">
             <br />
 
-                    <textarea id="TextArea1" name="S1" readonly="readonly"></textarea><asp:Panel ID="Panel1" runat="server">
+                    <asp:Panel ID="Panel1" runat="server">
+                        <asp:TextBox id="MessageDisplay" name="MessageDisplay" runat="server"  readonly="true"></asp:TextBox>
                         <asp:TextBox ID="NewMessageBox" runat="server" AutoCompleteType="Disabled" Height="20px" Width="675px"></asp:TextBox>
                         <asp:Button ID="SendMessage" runat="server" OnClick="SendMessage_Click" Text="Send" />
                     </asp:Panel>

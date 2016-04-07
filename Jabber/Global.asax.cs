@@ -7,6 +7,7 @@ using System.Web.Routing;
 using System.Web.Security;
 using System.Web.SessionState;
 using agsXMPP;
+using System.IO;
 
 namespace Jabber
 {
@@ -28,7 +29,8 @@ namespace Jabber
         void Session_End()
         {
             System.Diagnostics.Debug.WriteLine("Session ended");
-                       
+            
+                         
             
         }
     }

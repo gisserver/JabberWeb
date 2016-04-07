@@ -48,6 +48,8 @@ namespace Jabber
             Session["roster"] = roster;
             Contact cont = new Contact();
             Session["Contact"] = cont;
+            List<string> conversation = new List<string>();
+            Session["Conversation"] = conversation;
 
 
 

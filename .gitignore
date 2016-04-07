@@ -244,7 +244,7 @@ paket-files/
 .idea/
 *.sln.iml
 
-# Web.Config
+# WebConfig
 Jabber/Web.config
 
 #Test files

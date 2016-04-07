@@ -130,6 +130,15 @@ namespace Jabber {
         protected global::System.Web.UI.WebControls.Panel Panel1;
         
         /// <summary>
+        /// MessageDisplay control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox MessageDisplay;
+        
+        /// <summary>
         /// NewMessageBox control.
         /// </summary>
         /// <remarks>
